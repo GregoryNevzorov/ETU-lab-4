@@ -1,12 +1,14 @@
 #include<iostream>
 
+#define WORD_FROM_INPUT_STREAM_LAST_ITEM_INDEX 255
+
 using namespace std;
 
-bool pointInWord(char* word)
+bool pointInWord(char* wordFromInputStream)
 {
-	for (short int i = 0; word[i] != '\0' && i != 256; i++)
+	for (short int i = 0; wordFromInputStream[i] != '\0' && i != WORD_FROM_INPUT_STREAM_LAST_ITEM_INDEX; i++)
 	{
-		if (word[i] == '.')
+		if (wordFromInputStream[i] == '.')
 		{
 			return true;
 		}
@@ -16,13 +18,13 @@ bool pointInWord(char* word)
 
 void sequenceReading(char* preparedString, short int* indexOfLastItem)
 {
-	char* word = new char[256];
-	while (pointInWord(word) == false)
+	char* wordFromInputStream = new char[256];
+	while (pointInWord(wordFromInputStream) == false)
 	{
-		cin >> word;
-		for (short int i = 0; word[i] != '\0' && i != 256; i++)
+		cin >> wordFromInputStream;
+		for (short int i = 0; wordFromInputStream[i] != '\0' && i != WORD_FROM_INPUT_STREAM_LAST_ITEM_INDEX; i++)
 		{
-			preparedString[*indexOfLastItem] = word[i];
+			preparedString[*indexOfLastItem] = wordFromInputStream[i];
 			*indexOfLastItem += 1;
 		}
 		preparedString[*indexOfLastItem] = ' ';
@@ -31,7 +33,7 @@ void sequenceReading(char* preparedString, short int* indexOfLastItem)
 	*indexOfLastItem -= 1;
 	preparedString[*indexOfLastItem] = '\0';
 
-	delete[] word;
+	delete[] wordFromInputStream;
 }
 
 void sequenceSpaceProcessing()
